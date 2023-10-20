@@ -5,3 +5,7 @@ ERROR: failed to solve: failed to compute cache key: failed to calculate checksu
 
 
 docker run --name chatApp -v /home/ignis/Desktop/channel:/app/data -it chatapp
+
+boken@boken-dev-machine:~/chatApp$ docker run --name chatApp -v /home/ignis/Desktop/chatApp:/app -it chatapp
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "/app/main": stat /app/main: no such file or directory: unknown.
+ERRO[0000] error waiting for container:   
