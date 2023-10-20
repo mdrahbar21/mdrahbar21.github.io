@@ -1,2 +1,4 @@
 # Copy the database file into the image
 COPY /home/ignis/Desktop/channel/mydatabase.db /app/data/mydatabase.db
+
+ERROR: failed to solve: failed to compute cache key: failed to calculate checksum of ref bc2c8585-f014-4399-a8dd-7a9c855fd2b8::ki8rpboqkar6uux39dsjgja3a: "/home/ignis/Desktop/channel/mydatabase.db": not found
