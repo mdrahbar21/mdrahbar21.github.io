@@ -1,31 +1,38 @@
-# Copy the database file into the image
-COPY /home/ignis/Desktop/channel/mydatabase.db /app/data/mydatabase.db
 
-ERROR: failed to solve: failed to compute cache key: failed to calculate checksum of ref bc2c8585-f014-4399-a8dd-7a9c855fd2b8::ki8rpboqkar6uux39dsjgja3a: "/home/ignis/Desktop/channel/mydatabase.db": not found
+boken@boken-dev-machine:~/IBY/frontend$ npm install -g serve
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'serve@14.2.1',
+npm WARN EBADENGINE   required: { node: '>= 14' },
+npm WARN EBADENGINE   current: { node: 'v12.22.9', npm: '8.5.1' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'boxen@7.0.0',
+npm WARN EBADENGINE   required: { node: '>=14.16' },
+npm WARN EBADENGINE   current: { node: 'v12.22.9', npm: '8.5.1' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'camelcase@7.0.1',
+npm WARN EBADENGINE   required: { node: '>=14.16' },
+npm WARN EBADENGINE   current: { node: 'v12.22.9', npm: '8.5.1' }
+npm WARN EBADENGINE }
+npm ERR! code EACCES
+npm ERR! syscall mkdir
+npm ERR! path /usr/local/lib/node_modules
+npm ERR! errno -13
+npm ERR! Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules'
+npm ERR!  [Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules'] {
+npm ERR!   errno: -13,
+npm ERR!   code: 'EACCES',
+npm ERR!   syscall: 'mkdir',
+npm ERR!   path: '/usr/local/lib/node_modules'
+npm ERR! }
+npm ERR! 
+npm ERR! The operation was rejected by your operating system.
+npm ERR! It is likely you do not have the permissions to access this file as the current user
+npm ERR! 
+npm ERR! If you believe this might be a permissions issue, please double-check the
+npm ERR! permissions of the file and its containing directories, or try running
+npm ERR! the command again as root/Administrator.
 
-
-docker run --name chatApp -v /home/ignis/Desktop/channel:/app/data -it chatapp
-
-boken@boken-dev-machine:~/chatApp$ docker run --name chatApp -v /home/ignis/Desktop/chatApp:/app -it chatapp
-docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "/app/main": stat /app/main: no such file or directory: unknown.
-ERRO[0000] error waiting for container:   
-
-
-boken@boken-dev-machine:~/chatApp$ docker run --name chatApp -it chatapp
-INFO[0000] Connecting to database: db.sqlite            
-
-2023/10/20 12:06:55 /app/models/user.go:33 UNIQUE constraint failed: users.username
-[0.161ms] [rows:0] INSERT INTO `users` (`username`,`password`,`name`,`last_login_at`,`phone_no`,`designation`,`avatar_url`) VALUES ("h","123","Rahbar",1697803615,"1234567890","Developer","https://mdrahbar21.github.io/avatar.png")
-ERRO[0000] Error creating user: UNIQUE constraint failed: users.username 
-
-2023/10/20 12:06:55 /app/models/user.go:33 UNIQUE constraint failed: users.username
-[0.273ms] [rows:0] INSERT INTO `users` (`username`,`password`,`name`,`last_login_at`,`phone_no`,`designation`,`avatar_url`) VALUES ("kd","123","KD LAB PC",1697803615,"1234567890","Tester","https://avatars0.githubusercontent.com/u/17098281?s=460&v=4")
-ERRO[0000] Error creating user: UNIQUE constraint failed: users.username 
-
-2023/10/20 12:06:55 /app/models/user.go:33 UNIQUE constraint failed: users.username
-[0.069ms] [rows:0] INSERT INTO `users` (`username`,`password`,`name`,`last_login_at`,`phone_no`,`designation`,`avatar_url`) VALUES ("guest","guest","Guest",1697803615,"1234567890","Guest","https://avatars0.githubusercontent.com/u/17098584?s=460&v=4")
-ERRO[0000] Error creating user: UNIQUE constraint failed: users.username 
-
-2023/10/20 12:06:55 /app/models/channel.go:17 UNIQUE constraint failed: channels.name
-[0.088ms] [rows:0] INSERT INTO `channels` (`name`,`description`,`created_at`,`user_username`) VALUES ("general","general convo",1697803615,"h")
-INFO[0000] Starting server at port 8080                 
+npm ERR! A complete log of this run can be found in:
+npm ERR!     /home/boken/.npm/_logs/2023-10-20T12_40_11_015Z-debug-0.log
