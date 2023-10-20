@@ -1,0 +1,13 @@
+oken@boken-dev-machine:~/chatApp$ docker run --name chatApp -it chatapp
+INFO[0000] Connecting to database: /home/ignis/Desktop/channel/mydatabase.db 
+
+2023/10/20 10:27:07 /app/config/db.go:15
+[error] failed to initialize database, got error unable to open database file: no such file or directory
+ERRO[0000] Error connecting to database: unable to open database file: no such file or directory 
+panic: unable to open database file: no such file or directory
+
+goroutine 1 [running]:
+github.com/mdrahbar21/chatApp/tree/master/config.ConnectDB()
+        /app/config/db.go:18 +0x265
+github.com/mdrahbar21/chatApp/tree/master/models.init.0()
+        /app/models/init.go:11 +0x17
