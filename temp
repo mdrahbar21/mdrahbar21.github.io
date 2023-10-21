@@ -1,51 +1,32 @@
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+# Build React App
+FROM node:16-alpine AS node_builder
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+RUN mkdir /app
+ADD . /app
+WORKDIR /app/frontend
 
+RUN npm ci
+RUN npm run build
 
+# Build Go App and add React app
+FROM golang:1.21.3-alpine AS builder
 
+RUN apk add build-base
 
+RUN mkdir /app
+WORKDIR /app
 
+COPY go.mod .
+COPY go.sum .
 
+RUN go mod download
+RUN go mod tidy
 
+COPY . .
+COPY --from=node_builder /app/frontend/build ./frontend/build
 
+RUN go build -o main ./cmd/server
 
-boken@boken-dev-machine:~/IBY/frontend$ npm install -g serve
-npm WARN EBADENGINE Unsupported engine {
-npm WARN EBADENGINE   package: 'serve@14.2.1',
-npm WARN EBADENGINE   required: { node: '>= 14' },
-npm WARN EBADENGINE   current: { node: 'v12.22.9', npm: '8.5.1' }
-npm WARN EBADENGINE }
-npm WARN EBADENGINE Unsupported engine {
-npm WARN EBADENGINE   package: 'boxen@7.0.0',
-npm WARN EBADENGINE   required: { node: '>=14.16' },
-npm WARN EBADENGINE   current: { node: 'v12.22.9', npm: '8.5.1' }
-npm WARN EBADENGINE }
-npm WARN EBADENGINE Unsupported engine {
-npm WARN EBADENGINE   package: 'camelcase@7.0.1',
-npm WARN EBADENGINE   required: { node: '>=14.16' },
-npm WARN EBADENGINE   current: { node: 'v12.22.9', npm: '8.5.1' }
-npm WARN EBADENGINE }
-npm ERR! code EACCES
-npm ERR! syscall mkdir
-npm ERR! path /usr/local/lib/node_modules
-npm ERR! errno -13
-npm ERR! Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules'
-npm ERR!  [Error: EACCES: permission denied, mkdir '/usr/local/lib/node_modules'] {
-npm ERR!   errno: -13,
-npm ERR!   code: 'EACCES',
-npm ERR!   syscall: 'mkdir',
-npm ERR!   path: '/usr/local/lib/node_modules'
-npm ERR! }
-npm ERR! 
-npm ERR! The operation was rejected by your operating system.
-npm ERR! It is likely you do not have the permissions to access this file as the current user
-npm ERR! 
-npm ERR! If you believe this might be a permissions issue, please double-check the
-npm ERR! permissions of the file and its containing directories, or try running
-npm ERR! the command again as root/Administrator.
+EXPOSE 8080
 
-npm ERR! A complete log of this run can be found in:
-npm ERR!     /home/boken/.npm/_logs/2023-10-20T12_40_11_015Z-debug-0.log
+CMD ["/app/main"]
